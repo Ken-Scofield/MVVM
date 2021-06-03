@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MVVM原理及其实现</title>
+</head>
+<body>
+<!--
+<div id="app">
+  <input type="text" v-model="message">
+  <div>{{message}}</div>
+  <ul><li></li></ul>
+</div>
+-->
+<div id="app" style="font-size:32px;">
+   <input type="text" v-mode="message"/>
+   <div>{{message}}</div>
+</div>
+<!--<script src="watcher.js"></script>-->
+<!--<script src="observe.js"></script>-->
+<!--<script src="compile.js"></script>-->
+<!--<script src="mvvm.js"></script>-->
+<script src="observer.js"></script>
+<script src="watcher.js"></script>
+<script src="compile.js"></script>
+<script src="MVVM.js"></script>
+<script>
+  console.log(Compile)
+/**
+  let vm = new MVVM({
+    el: '#app',
+    data: {
+      message: 'hello world',
+      a: {
+        b: 'bbb'
+      }
+    }
+  })
+  **/
+  var person = {
+    name: 'ben'
+  }
+  observer(person);
+  person.name = 'bob'
+  const vm = new MVVM({
+    el:'#app',
+	data:{
+	  name:"ben",
+	  message:'hello mvvm',
+	  a:{
+	    b: 'bbb'
+	  }
+	},
+	methods:{
+	   changeName(){
+	     this.name = 'hi'
+	   }
+	}
+  })
+</script>
+</body>
+</html>
