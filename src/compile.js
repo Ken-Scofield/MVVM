@@ -1,6 +1,6 @@
 function Compile(vm) {
 	this.vm = vm;
-	this.el = vm.$el;
+	this.el = vm.$el; //todo 判断是否是元素结点
 	this.fragment = null;
 	this.init();
 }
@@ -32,6 +32,7 @@ Compile.prototype = {
         return name.includes('v-');
     },
 	bind: function(node, vm, exp, dir) {
+		
 		if (dir === 'text'){
 			node.textContent = vm[exp]
 		} else if (dir === 'html'){
@@ -39,6 +40,16 @@ Compile.prototype = {
 		} else if (dir === 'value'){
 			node.value = vm[exp]
 		}
+		
+		new Watcher(vm, exp, function(){
+			if (dir === 'text') {
+			  node.textContent = vm[exp];
+			} else if (dir === 'html') {
+			  node.innerHTML = vm[exp];
+			} else if (dir === 'value'){
+			  node.value = vm[exp]
+		    }
+		})
 	},
 	compileNode: function(fragment){
 		let childNodes = fragment.childNodes;

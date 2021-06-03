@@ -16,6 +16,7 @@ function defineReactive(obj,key,val){
 		enumerable: true,
 		configurable: true,
 		get: function getter() {
+			debugger
 			if (Dep.target){
 				dep.addSub(Dep.target);
 			}
@@ -28,6 +29,7 @@ function defineReactive(obj,key,val){
 
 			console.log('监听到数值变化',val,'--->',newVal);
 			val = newVal;
+			console.log("劫持到值变化，通知Dep")
 			dep.notify();
 		}
 	})
@@ -35,10 +37,12 @@ function defineReactive(obj,key,val){
 
 function Dep() {
 	this.subs = [];
+	this.uid = 0;
 }
 
 Dep.prototype.addSub = function (sub) {
-	this.subs.push(sub)
+	this.subs.push(sub);
+	this.uid++;
 	console.log('Add Sub',this.subs)
 }
 
@@ -47,6 +51,10 @@ Dep.prototype.notify = function (){
 	this.subs.forEach(sub=>{
 		sub.update(); // 视图更新
 	})
+}
+
+Dep.prototype.depend = function (sub){
+	Dep.target.addDep(this, sub)
 }
 
 Dep.target = null;
