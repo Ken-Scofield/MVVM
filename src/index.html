@@ -13,7 +13,7 @@
 </div>
 -->
 <div id="app" style="font-size:32px;">
-   <input type="text" v-mode="message"/>
+   <input type="text" v-model="message"/>
    <div>{{message}}</div>
 </div>
 <!--<script src="watcher.js"></script>-->
@@ -25,7 +25,6 @@
 <script src="compile.js"></script>
 <script src="MVVM.js"></script>
 <script>
-  console.log(Compile)
 /**
   let vm = new MVVM({
     el: '#app',
